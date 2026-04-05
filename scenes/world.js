@@ -209,7 +209,7 @@ function setWorld(worldState) {
     tick++;
     if (
       (isKeyDown("down") || isKeyDown("up")) &&
-      tick % 20 === 0 &&
+      tick % 10 === 0 &&
       !player.isInDialogue
     ) {
       player.flipX = !player.flipX;

@@ -120,5 +120,96 @@ function setBattle(worldState) {
     );
   }
 
+  let phase = "player-selection";
+  onKeyPress("space", () => {
+    if (playerMon.fainted || enemyMon.fainted) return;
 
+    if (phase === "player-selection") {
+      content.text = "> Tackle";
+      phase = "player-turn";
+      return;
+    }
+
+    if (phase === "enemy-turn") {
+      content.text = worldState.enemyName.toUpperCase() + " attacks!";
+      const damageDealt = Math.random() * 230;
+
+      if (damageDealt > 150) {
+        content.text = "It's a critical hit!";
+      }
+
+      reduceHealth(playerMonHealthBar, damageDealt);
+      makeMonFlash(playerMon);
+
+      phase = "player-selection";
+      return;
+    }
+
+
+    if (phase === "player-turn") {
+      const damageDealt = Math.random() * 230;
+
+      if (damageDealt > 150) {
+        content.text = "It's a critical hit!";
+      } else {
+        content.text = "MUSHROOM used tackle.";
+      }
+
+      reduceHealth(enemyMonHealthBar, damageDealt);
+      makeMonFlash(enemyMon);
+
+      phase = "enemy-turn";
+    }
+  });
+
+  function colorizeHealthBar(healthBar) {
+    if (healthBar.width < 200) {
+      healthBar.use(color(250, 150, 0));
+    }
+
+    if (healthBar.width < 100) {
+      healthBar.use(color(200, 0, 0));
+    }
+  }
+
+    function makeMonDrop(mon) {
+        tween(
+            mon.pos.y, 
+            800, 
+            0.5, 
+            (val) => (mon.pos.y = val), 
+            easings.easeInSine
+        );
+    }
+
+    onUpdate(() => {
+    colorizeHealthBar(playerMonHealthBar);
+    colorizeHealthBar(enemyMonHealthBar);
+
+    if (enemyMonHealthBar.width < 0 && !enemyMon.fainted) {
+      makeMonDrop(enemyMon);
+      content.text = worldState.enemyName.toUpperCase() + " fainted!";
+      enemyMon.fainted = true;
+      setTimeout(() => {
+        content.text = "MUSHROOM won the battle!";
+      }, 1200);
+      setTimeout(() => {
+        worldState.faintedMons.push(worldState.enemyName);
+        go("world", worldState);
+      }, 2000);
+    }
+
+    if (playerMonHealthBar.width < 0 && !playerMon.fainted) {
+      makeMonDrop(playerMon);
+      content.text = "MUSHROOM fainted!";
+      playerMon.fainted = true;
+      setTimeout(() => {
+        content.text = "You rush to get MUSHROOM healed!";
+      }, 1200);
+      setTimeout(() => {
+        worldState.playerPos = vec2(500, 700);
+        go("world", worldState);
+      }, 2000);
+    }
+  });
 }
