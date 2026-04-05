@@ -133,12 +133,74 @@ function setWorld(worldState) {
   ];
 
   for (const layer of map) {
-    layer.use(scale(2.7));
+    layer.use(scale(4));
     for (const tile of layer.children) {
       if (tile.type) {
         tile.play(tile.type);
       }
     }
   }
+
+  add([
+    sprite("mini-mons"),
+    area(),
+    body({ isStatic: true }),
+    pos(100, 700),
+    scale(4),
+    "cat",
+  ]);
+
+  const spiderMon = add([
+    sprite("mini-mons"),
+    area(),
+    body({ isStatic: true }),
+    pos(400, 300),
+    scale(4),
+    "spider",
+  ]);
+  spiderMon.play("spider");
+  spiderMon.flipX = true;
+
+  const centipedeMon = add([
+    sprite("mini-mons"),
+    area(),
+    body({ isStatic: true }),
+    pos(100, 100),
+    scale(4),
+    "centipede",
+  ]);
+  centipedeMon.play("centipede");
+
+  const grassMon = add([
+    sprite("mini-mons"),
+    area(),
+    body({ isStatic: true }),
+    pos(900, 570),
+    scale(4),
+    "grass",
+  ]);
+  grassMon.play("grass");
+
+  add([
+    sprite("npc"),
+    scale(4),
+    pos(600, 700),
+    area(),
+    body({ isStatic: true }),
+    "npc",
+  ]);
+
+  const player = add([
+    sprite("player-down"),
+    pos(500, 700),
+    scale(4),
+    area(),
+    body(),
+    {
+      currentSprite: "player-down",
+      speed: 300,
+      isInDialogue: false,
+    },
+  ]);
 
 }
