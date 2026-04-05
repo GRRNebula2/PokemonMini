@@ -263,5 +263,52 @@ function setWorld(worldState) {
     player.stop();
   });
 
+    if (!worldState) {
+    worldState = {
+      playerPos: player.pos,
+      faintedMons: [],
+    };
+  }
+
+  player.pos = vec2(worldState.playerPos);
+  for (const faintedMon of worldState.faintedMons) {
+    destroy(get(faintedMon)[0]);
+  }
+
+  player.onCollide("npc", () => {
+    player.isInDialogue = true;
+    const dialogueBoxFixedContainer = add([fixed()]);
+    const dialogueBox = dialogueBoxFixedContainer.add([
+      rect(1000, 200),
+      outline(5),
+      pos(150, 500),
+      fixed(),
+    ]);
+    const dialogue =
+      "Defeat all monsters on this island and you'll become the champion!";
+    const content = dialogueBox.add([
+      text("", {
+        size: 42,
+        width: 900,
+        lineSpacing: 15,
+      }),
+      color(10, 10, 10),
+      pos(40, 30),
+      fixed(),
+    ]);
+
+    if (worldState.faintedMons.length < 4) {
+      content.text = dialogue;
+    } else {
+      content.text = "You're the champion!";
+    }
+
+     onUpdate(() => {
+      if (isKeyDown("space")) {
+        destroy(dialogueBox);
+        player.isInDialogue = false;
+      }
+    });
+  });
 
 }
