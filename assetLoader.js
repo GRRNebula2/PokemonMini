@@ -4,7 +4,7 @@ function loadAssets() {
     "player-up": { x: 48, y: 82, width: 16, height: 16 },
     "player-side": {
       x: 32,
-      y: 98,
+      y: 97,
       width: 32,
       height: 16,
       sliceX: 2,
