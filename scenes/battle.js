@@ -1,14 +1,14 @@
 function setBattle(worldState) {
   add([sprite("battle-background"), scale(1.3), pos(0, 0)]);
 
-  const maxHelaEnemy = 400;
-  const maxHelaPlayer = 400;
+  let maxHelaEnemy = 400;
+  let maxHelaPlayer = 400;
 
   if (worldState.enemyName === "cat") {
-    maxHela = 600;
+    maxHelaEnemy = 600;
   }
   if (worldState.enemyName === "grass") {
-    maxHela = 200;
+    maxHelaEnemy = 200;
   }
 
   const enemyMon = add([
@@ -16,7 +16,7 @@ function setBattle(worldState) {
     scale(5),
     pos(1300, 100),
     opacity(1),
-    health(maxHela),
+    health(maxHelaEnemy),
     {
       fainted: false,
     },
