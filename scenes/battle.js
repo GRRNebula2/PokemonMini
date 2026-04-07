@@ -6,6 +6,7 @@ function setBattle(worldState) {
     scale(5),
     pos(1300, 100),
     opacity(1),
+    health(400),
     {
       fainted: false,
     },
@@ -25,6 +26,7 @@ function setBattle(worldState) {
     scale(8),
     pos(-100, 300),
     opacity(1),
+    health(400),
     {
       fainted: false,
     },
@@ -95,10 +97,13 @@ function setBattle(worldState) {
     pos(20, 20),
   ]);
 
-  function reduceHealth(healthBar, damageDealt) {
+  function reduceHealth(mon, healthBar, damageDealt) {
+    const prosentti = damageDealt / mon.hp();
+    mon.hurt(damageDealt);
+
     tween(
       healthBar.width,
-      healthBar.width - damageDealt,
+      healthBar.width - healthBar.width * prosentti,
       0.5,
       (val) => (healthBar.width = val),
       easings.easeInSine
@@ -138,7 +143,7 @@ function setBattle(worldState) {
         content.text = "It's a critical hit!";
       }
 
-      reduceHealth(playerMonHealthBar, damageDealt);
+      reduceHealth(playerMon, playerMonHealthBar, damageDealt);
       makeMonFlash(playerMon);
 
       phase = "player-selection";
@@ -155,7 +160,7 @@ function setBattle(worldState) {
         content.text = "MUSHROOM used tackle.";
       }
 
-      reduceHealth(enemyMonHealthBar, damageDealt);
+      reduceHealth(enemyMon, enemyMonHealthBar, damageDealt);
       makeMonFlash(enemyMon);
 
       phase = "enemy-turn";
