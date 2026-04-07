@@ -1,12 +1,22 @@
 function setBattle(worldState) {
   add([sprite("battle-background"), scale(1.3), pos(0, 0)]);
 
+  const maxHelaEnemy = 400;
+  const maxHelaPlayer = 400;
+
+  if (worldState.enemyName === "cat") {
+    maxHela = 600;
+  }
+  if (worldState.enemyName === "grass") {
+    maxHela = 200;
+  }
+
   const enemyMon = add([
     sprite(worldState.enemyName + "-mon"),
     scale(5),
     pos(1300, 100),
     opacity(1),
-    health(400),
+    health(maxHela),
     {
       fainted: false,
     },
@@ -26,7 +36,7 @@ function setBattle(worldState) {
     scale(8),
     pos(-100, 300),
     opacity(1),
-    health(400),
+    health(maxHelaPlayer),
     {
       fainted: false,
     },
@@ -88,6 +98,12 @@ function setBattle(worldState) {
     (val) => (enemyMonHealthBox.pos.x = val),
     easings.easeInSine
   );
+
+  enemyMonHealthBox.add([
+    text(enemyMon.hp() + "HP" + "/" + maxHelaEnemy + "HP", { size: 14 }),
+    color(10, 10, 10),
+    pos(20, 65),
+  ]);
 
   const box = add([rect(1300, 300), outline(4), pos(-2, 530)]);
 
