@@ -61,6 +61,13 @@ function setBattle(worldState) {
 
   playerMonHealthBox.add([rect(370, 10), color(200, 200, 200), pos(15, 50)]);
 
+  let counterPlayer = playerMonHealthBox.add([
+    text(playerMon.hp() + "HP" + "/" + maxHelaPlayer + "HP", { size: 14 }),
+    color(10, 10, 10),
+    pos(20, 65),
+  ]);
+
+
   const playerMonHealthBar = playerMonHealthBox.add([
     rect(370, 10),
     color(0, 200, 0),
@@ -121,6 +128,10 @@ function setBattle(worldState) {
     counterEnemy.text = enemyMon.hp() + "HP" + "/" + maxHelaEnemy + "HP";
     }
 
+    if (mon === playerMon) {
+      counterPlayer.text = playerMon.hp() + "HP" + "/" + maxHelaPlayer + "HP";
+    }
+
     tween(
       healthBar.width,
       healthBar.width - healthBar.width * prosentti,
@@ -157,7 +168,7 @@ function setBattle(worldState) {
 
     if (phase === "enemy-turn") {
       content.text = worldState.enemyName.toUpperCase() + " attacks!";
-      const damageDealt = Math.random() * 230;
+      const damageDealt = Math.floor(Math.random() * 230);
 
       if (damageDealt > 150) {
         content.text = "It's a critical hit!";
