@@ -330,11 +330,12 @@ function setWorld(worldState) {
   function onCollideWithPlayer(enemyName, player, worldState) {
     player.onCollide(enemyName, () => {
       flashScreen();
+      player.isInDialogue = true;
       setTimeout(() => {
         worldState.playerPos = player.pos;
         worldState.enemyName = enemyName;
         go("battle", worldState);
-      }, 1000);
+      }, 1000);  
     });
   }
 
