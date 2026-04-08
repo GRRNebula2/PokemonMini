@@ -237,22 +237,29 @@ function setWorld(worldState) {
 
   onKeyDown("left", () => {
     if (player.isInDialogue) return;
+    player.move(-player.speed, 0);
+    if (isKeyDown("down") || isKeyDown("up")) {
+        return;
+      }
     player.flipX = false;
     if (player.curAnim() !== "walk") {
       setSprite(player, "player-side");
       player.play("walk");
     }
-    player.move(-player.speed, 0);
+    
   });
 
   onKeyDown("right", () => {
     if (player.isInDialogue) return;
+    player.move(player.speed, 0);
+    if (isKeyDown("down") || isKeyDown("up")) {
+        return;
+      }
     player.flipX = true;
     if (player.curAnim() !== "walk") {
       setSprite(player, "player-side");
       player.play("walk");
     }
-    player.move(player.speed, 0);
   });
 
   onKeyRelease("left", () => {
