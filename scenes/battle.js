@@ -99,7 +99,7 @@ function setBattle(worldState) {
     easings.easeInSine
   );
 
-  enemyMonHealthBox.add([
+  let counterEnemy = enemyMonHealthBox.add([
     text(enemyMon.hp() + "HP" + "/" + maxHelaEnemy + "HP", { size: 14 }),
     color(10, 10, 10),
     pos(20, 65),
@@ -116,6 +116,10 @@ function setBattle(worldState) {
   function reduceHealth(mon, healthBar, damageDealt) {
     const prosentti = damageDealt / mon.hp();
     mon.hurt(damageDealt);
+
+    if (mon !== playerMon) {
+    counterEnemy.text = enemyMon.hp() + "HP" + "/" + maxHelaEnemy + "HP";
+    }
 
     tween(
       healthBar.width,
@@ -168,7 +172,9 @@ function setBattle(worldState) {
 
 
     if (phase === "player-turn") {
-      const damageDealt = Math.random() * 230;
+      const damageDealt = Math.floor(Math.random() * 230);
+
+
 
       if (damageDealt > 150) {
         content.text = "It's a critical hit!";
