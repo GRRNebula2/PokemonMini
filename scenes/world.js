@@ -188,7 +188,17 @@ function setWorld(worldState) {
     area(),
     body({ isStatic: true }),
     "npc",
+  ]); 
+
+  add([
+    sprite("hela"),
+    scale(4),
+    pos(300, 700),
+    area(),
+    body({ isStatic: true }),
+    "hela",
   ]);
+
 
   const player = add([
     sprite("player-down"),

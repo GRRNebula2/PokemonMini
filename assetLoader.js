@@ -12,6 +12,7 @@ function loadAssets() {
       anims: { walk: { from: 0, to: 1, speed: 6 } },
     },
     "npc": { x: 0, y: 98, width: 16, height: 16 },
+    "hela": { x: 96, y: 98, width: 16, heigth: 16 },
     "cat-mon": { x: 0, y: 16, width: 32, height: 32 },
     "spider-mon": { x: 32, y: 16, width: 32, height: 32 },
     "centipede-mon": { x: 64, y: 16, width: 32, height: 32 },
