@@ -182,23 +182,22 @@ function setWorld(worldState) {
   grassMon.play("grass");
 
   add([
+    sprite("hela"),
+    scale(4),
+    pos(620, 410),
+    area(),
+    body({ isStatic: true }),
+    "hela",
+  ]);
+
+  add([
     sprite("npc"),
     scale(4),
     pos(600, 700),
     area(),
     body({ isStatic: true }),
     "npc",
-  ]); 
-
-  add([
-    sprite("hela"),
-    scale(4),
-    pos(300, 700),
-    area(),
-    body({ isStatic: true }),
-    "hela",
   ]);
-
 
   const player = add([
     sprite("player-down"),
