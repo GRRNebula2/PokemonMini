@@ -181,7 +181,7 @@ function setWorld(worldState) {
   ]);
   grassMon.play("grass");
 
-  add([
+  const hela = add([
     sprite("hela"),
     scale(4),
     pos(620, 410),
@@ -283,12 +283,17 @@ function setWorld(worldState) {
     worldState = {
       playerPos: player.pos,
       faintedMons: [],
+      hasHealthItem: false,
     };
   }
 
   player.pos = vec2(worldState.playerPos);
   for (const faintedMon of worldState.faintedMons) {
     destroy(get(faintedMon)[0]);
+  }
+
+  if (worldState.hasHealthItem) {
+    destroy(hela);
   }
 
   player.onCollide("npc", () => {
@@ -358,6 +363,7 @@ function setWorld(worldState) {
       }
     });
     destroy(hela);
+    worldState.hasHealthItem = true;
   });
 
   function flashScreen() {
