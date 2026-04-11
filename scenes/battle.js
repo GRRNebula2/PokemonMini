@@ -197,9 +197,11 @@ function setBattle(worldState) {
           return;
         });
       }
-      /*content.text = "> Tackle";
+      else {
+      content.text = "> Tackle";
       phase = "player-turn";
-      return; */
+      return; 
+      }
     }
 
     if (phase === "enemy-turn") {
