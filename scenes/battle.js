@@ -143,7 +143,7 @@ function setBattle(worldState) {
 
   function increaseHealth(mon, healthBar, healaus) {
     const prosentti = healaus / mon.hp();
-    mon.heal(healaus);
+    playerMonmon.heal(healaus);
 
     if (mon !== playerMon) {
     counterEnemy.text = enemyMon.hp() + "HP" + "/" + maxHelaEnemy + "HP";
