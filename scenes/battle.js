@@ -142,7 +142,7 @@ function setBattle(worldState) {
   }
 
   function increaseHealth(mon, healthBar, healaus) {
-    const prosentti = healaus / mon.hp();
+    const prosentti = healaus / maxHelaPlayer;
     playerMon.heal(healaus);
 
     if (mon !== playerMon) {
@@ -185,11 +185,11 @@ function setBattle(worldState) {
     if (phase === "player-selection") {
       if (worldState.hasHealthItem === true) {
         content.text = "Press Space to Tackle. Press Enter to use health item."
-        onKeyDown("space", () => {
+        onKeyPress("space", () => {
           phase = "player-turn";
           return;
         });
-        onKeyDown("enter", () => {
+        onKeyPress("enter", () => {
           increaseHealth(playerMon, playerMonHealthBar, 150);
           worldState.hasHealthItem = false;
           content.text = "You used health item! +150hp!"
