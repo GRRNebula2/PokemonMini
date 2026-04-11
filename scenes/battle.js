@@ -161,10 +161,24 @@ function setBattle(worldState) {
     if (playerMon.fainted || enemyMon.fainted) return;
 
     if (phase === "player-selection") {
+      if (worldState.hasHealthItem === true) {
+        content.text = "Press Space to Tackle. Press Enter to use health item."
+        if (onKeyPress("space")) {
+          phase = "player-turn";
+          return;
+        }
+        if (onKeyPress("enter")) {
+          playerMon.heal(150);
+          phase = "enemy-turn";
+          return;
+        }
+      }
+      else {
       content.text = "> Tackle";
       phase = "player-turn";
       return;
     }
+  }
 
     if (phase === "enemy-turn") {
       content.text = worldState.enemyName.toUpperCase() + " attacks!";
