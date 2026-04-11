@@ -141,6 +141,28 @@ function setBattle(worldState) {
     );
   }
 
+  function increaseHealth(mon, healthBar, healaus) {
+    const prosentti = healaus / mon.hp();
+    mon.heal(healaus);
+
+    if (mon !== playerMon) {
+    counterEnemy.text = enemyMon.hp() + "HP" + "/" + maxHelaEnemy + "HP";
+    }
+
+    if (mon === playerMon) {
+      counterPlayer.text = playerMon.hp() + "HP" + "/" + maxHelaPlayer + "HP";
+    }
+
+    tween(
+      healthBar.width,
+      healthBar.width + healthBar.width * prosentti,
+      0.5,
+      (val) => (healthBar.width = val),
+      easings.easeInSine
+    );
+  }
+
+
   function makeMonFlash(mon) {
     tween(
       mon.opacity,
@@ -163,22 +185,21 @@ function setBattle(worldState) {
     if (phase === "player-selection") {
       if (worldState.hasHealthItem === true) {
         content.text = "Press Space to Tackle. Press Enter to use health item."
-        if (onKeyPress("space")) {
+        onKeyDown("space", () => {
           phase = "player-turn";
           return;
-        }
-        if (onKeyPress("enter")) {
-          playerMon.heal(150);
+        });
+        onKeyDown("enter", () => {
+          increaseHealth(playerMon, playerMonHealthBar, 150);
+          worldState.hasHealthItem = false;
           phase = "enemy-turn";
           return;
-        }
+        });
       }
-      else {
-      content.text = "> Tackle";
+      /*content.text = "> Tackle";
       phase = "player-turn";
-      return;
+      return; */
     }
-  }
 
     if (phase === "enemy-turn") {
       content.text = worldState.enemyName.toUpperCase() + " attacks!";
