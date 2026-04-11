@@ -192,6 +192,7 @@ function setBattle(worldState) {
         onKeyDown("enter", () => {
           increaseHealth(playerMon, playerMonHealthBar, 150);
           worldState.hasHealthItem = false;
+          content.text = "You used health item! +150hp!"
           phase = "enemy-turn";
           return;
         });
