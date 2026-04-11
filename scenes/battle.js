@@ -184,7 +184,7 @@ function setBattle(worldState) {
 
     if (phase === "player-selection") {
       if (worldState.hasHealthItem === true) {
-        content.text = "Press Space to Tackle. Press Enter to use health item."
+        content.text = "Press Space to Tackle. \n \nPress Enter to use health item."
         onKeyPress("space", () => {
           phase = "player-turn";
           return;
