@@ -155,7 +155,7 @@ function setBattle(worldState) {
 
     tween(
       healthBar.width,
-      healthBar.width + healthBar.width * prosentti,
+      healthBar.width + (370 * prosentti),
       0.5,
       (val) => (healthBar.width = val),
       easings.easeInSine
