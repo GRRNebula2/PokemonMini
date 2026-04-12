@@ -165,6 +165,7 @@ function setBattle(worldState) {
       (val) => (healthBar.width = val),
       easings.easeInSine
     );
+    return healaus;
   }
 
 
@@ -191,9 +192,9 @@ function setBattle(worldState) {
         content.text = "Press Space to Tackle. \n \nPress Enter to use health item.";
         onKeyPress("enter", () => {
            if (worldState.hasHealthItem === true) {
-          increaseHealth(playerMon, playerMonHealthBar, 150);
+          let hp = increaseHealth(playerMon, playerMonHealthBar, 150);
           worldState.hasHealthItem = false;
-          content.text = "You used health item! +150hp!";
+          content.text = "You used health item! +" + hp + "hp!";
           phase = "enemy-turn";
           return;
         }
