@@ -184,7 +184,7 @@ function setBattle(worldState) {
 
     if (phase === "player-selection") {
       if (worldState.hasHealthItem === true) {
-        content.text = "Press Space to Tackle. \n \nPress Enter to use health item."
+        content.text = "Press Space to Tackle. \n \nPress Enter to use health item.";
         onKeyPress("space", () => {
           phase = "player-turn";
           return;
@@ -192,7 +192,7 @@ function setBattle(worldState) {
         onKeyPress("enter", () => {
           increaseHealth(playerMon, playerMonHealthBar, 150);
           worldState.hasHealthItem = false;
-          content.text = "You used health item! +150hp!"
+          content.text = "You used health item! +150hp!";
           phase = "enemy-turn";
           return;
         });
@@ -205,6 +205,8 @@ function setBattle(worldState) {
     }
 
     if (phase === "enemy-turn") {
+      console.log(phase);
+      console.log("vihollisen vuoro")
       content.text = worldState.enemyName.toUpperCase() + " attacks!";
       const damageDealt = Math.floor(Math.random() * 230);
 
@@ -235,6 +237,7 @@ function setBattle(worldState) {
       makeMonFlash(enemyMon);
 
       phase = "enemy-turn";
+      console.log(phase);
     }
   });
 
