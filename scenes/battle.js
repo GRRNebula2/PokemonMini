@@ -193,7 +193,7 @@ function setBattle(worldState) {
           return;
         }
         else if (worldState.hasHealthItem === false) {
-          content.text = "You've ran out of healt items.\n \nUsing tackle instead."
+          content.text = "You've ran out of healt items.\n \nUsing tackle instead.";
           phase = "player-turn"
           return;
         }
