@@ -202,12 +202,22 @@ function setBattle(worldState) {
           content.text = "You've ran out of healt items.\n \nUsing tackle instead.";
           phase = "player-turn"
           return;
-        }
-        onKeyPress("shift", () => {
-          phase = "player-stunnaa";
-          return;
+          }
         });
-      });
+        onKeyPress("shift", () => {
+          const damageDealt = Math.floor(Math.random() * 100);
+
+          if (damageDealt > 40) {
+            setTimeout(() => content.text = "Stun succesfull!", 1000);
+            content.text = "enemy stunned";
+            setTimeout(() => phase = "player-selection", 2000);
+            return;
+          } else {
+            content.text = "Stun has no effect.";
+            setTimeout(() => phase = "enemy-turn", 1400);
+            return;
+          }
+        });
       phase = "player-turn";
       return; 
     }
@@ -227,7 +237,7 @@ function setBattle(worldState) {
       return;
     }
 
-    if (phase === "player-stunnaa") {
+    /*if (phase === "player-stunnaa") {
       const damageDealt = Math.floor(Math.random() * 100);
 
       if (damageDealt > 40) {
@@ -240,7 +250,7 @@ function setBattle(worldState) {
         setTimeout(() => phase = "enemy-turn", 1400);
         return;
       }
-    }
+    }*/
 
 
     if (phase === "player-turn") {
