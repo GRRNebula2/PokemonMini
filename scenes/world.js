@@ -145,7 +145,7 @@ function setWorld(worldState) {
     sprite("mini-mons"),
     area(),
     body({ isStatic: true }),
-    pos(100, 700),
+    pos(600, 200),
     scale(4),
     "cat",
   ]);
@@ -154,7 +154,7 @@ function setWorld(worldState) {
     sprite("mini-mons"),
     area(),
     body({ isStatic: true }),
-    pos(400, 300),
+    pos(100, 700),
     scale(4),
     "spider",
   ]);
