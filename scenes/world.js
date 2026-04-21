@@ -159,7 +159,7 @@ function setWorld(worldState) {
     "spider",
   ]);
   spiderMon.play("spider");
-  spiderMon.flipX = true;
+  //spiderMon.flipX = true;
 
   const centipedeMon = add([
     sprite("mini-mons"),
