@@ -189,7 +189,7 @@ function setBattle(worldState) {
     if (playerMon.fainted || enemyMon.fainted) return;
 
     if (phase === "player-selection") {
-        content.text = "Press Space to Tackle. \n \nPress Enter to use health item.";
+        content.text = "Press Space to Tackle. \n Press shift to stun. \n Press Enter to use health item.";
         onKeyPress("enter", () => {
            if (worldState.hasHealthItem === true) {
           let hp = increaseHealth(playerMon, playerMonHealthBar, 150);
@@ -203,6 +203,10 @@ function setBattle(worldState) {
           phase = "player-turn"
           return;
         }
+        onKeyPress("shift", () => {
+          phase = "player-stunnaa";
+          return;
+        });
       });
       phase = "player-turn";
       return; 
@@ -223,6 +227,21 @@ function setBattle(worldState) {
       return;
     }
 
+    if (phase === "player-stunnaa") {
+      const damageDealt = Math.floor(Math.random() * 100);
+
+      if (damageDealt > 40) {
+        setTimeout(() => content.text = "Stun succesfull!", 1000);
+        content.text = "enemy stunned";
+      setTimeout(() => phase = "player-selection", 2000);
+      return;
+      } else {
+        content.text = "Stun has no effect.";
+        setTimeout(() => phase = "enemy-turn", 1400);
+        return;
+      }
+    }
+
 
     if (phase === "player-turn") {
       const damageDealt = Math.floor(Math.random() * 230);
@@ -240,7 +259,14 @@ function setBattle(worldState) {
 
       phase = "enemy-turn";
     }
-  });
+    
+    if (phase === "enemy-stunned") {
+      content.text = "enemy stunned";
+
+      setTimeout(() => phase = "player-selection", 2500);
+    }
+
+  }); 
 
   function colorizeHealthBar(healthBar) {
     if (healthBar.width < 200) {
