@@ -190,33 +190,7 @@ function setBattle(worldState) {
 
     if (phase === "player-selection") {
         content.text = "Press Space to Tackle. \nPress shift to stun. \nPress Enter to use health item.";
-        onKeyPress("enter", () => {
-           if (worldState.hasHealthItem === true) {
-          let hp = increaseHealth(playerMon, playerMonHealthBar, 150);
-          worldState.hasHealthItem = false;
-          setTimeout(() => content.text = "You used health item! +" + hp + "hp!", 1000);
-          phase = "enemy-turn";
-          return;
-        }
-        else if (worldState.hasHealthItem === false) {
-          content.text = "You've ran out of healt items.\n \nUsing tackle instead.";
-          phase = "player-turn"
-          return;
-          }
-        });
-        onKeyPress("shift", () => {
-          const stunnaako = Math.floor(Math.random() * 100);
-
-          if (stunnaako > 40) {
-            setTimeout(() => content.text = "Stun succesfull! Enemy stunned.", 800);
-            setTimeout(() => phase = "player-selection", 1000);
-            return;
-          } else if (stunnaako <= 40) {
-            content.text = "Stun has no effect.";
-            setTimeout(() => phase = "enemy-turn", 800);
-            return;
-          }
-        });
+        
       phase = "player-turn";
       return; 
     }
@@ -275,7 +249,37 @@ function setBattle(worldState) {
       setTimeout(() => phase = "player-selection", 2500);
     }
 
-  }); 
+  });
+  
+  onKeyPress("enter", () => {
+           if (worldState.hasHealthItem === true) {
+          let hp = increaseHealth(playerMon, playerMonHealthBar, 150);
+          worldState.hasHealthItem = false;
+          setTimeout(() => content.text = "You used health item! +" + hp + "hp!", 1000);
+          phase = "enemy-turn";
+          return;
+        }
+        else if (worldState.hasHealthItem === false) {
+          content.text = "You've ran out of healt items.\n \nUsing tackle instead.";
+          phase = "player-turn"
+          return;
+          }
+        });
+
+
+        onKeyPress("shift", () => {
+          const stunnaako = Math.floor(Math.random() * 100);
+
+          if (stunnaako > 40) {
+            setTimeout(() => content.text = "Stun succesfull! Enemy stunned.", 800);
+            setTimeout(() => phase = "player-selection", 1000);
+            return;
+          } else if (stunnaako <= 40) {
+            content.text = "Stun has no effect.";
+            setTimeout(() => phase = "enemy-turn", 800);
+            return;
+          }
+        });
 
   function colorizeHealthBar(healthBar) {
     if (healthBar.width < 200) {
