@@ -205,15 +205,15 @@ function setBattle(worldState) {
           }
         });
         onKeyPress("shift", () => {
-          const damageDealt = Math.floor(Math.random() * 100);
+          const stunnaako = Math.floor(Math.random() * 100);
 
-          if (damageDealt > 40) {
-            setTimeout(() => content.text = "Stun succesfull! Enemy stunned.", 1000);
+          if (stunnaako > 40) {
+            setTimeout(() => content.text = "Stun succesfull! Enemy stunned.", 800);
             setTimeout(() => phase = "player-selection", 1000);
             return;
-          } else {
+          } else if (stunnaako <= 40) {
             content.text = "Stun has no effect.";
-            setTimeout(() => phase = "enemy-turn", 1400);
+            setTimeout(() => phase = "enemy-turn", 800);
             return;
           }
         });
