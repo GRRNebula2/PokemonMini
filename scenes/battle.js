@@ -19,6 +19,8 @@ function setBattle(worldState) {
     health(maxHelaEnemy),
     {
       fainted: false,
+      isStunned: false,
+      stunnedTimes: 0,
     },
   ]);
   enemyMon.flipX = true;
@@ -39,8 +41,6 @@ function setBattle(worldState) {
     health(maxHelaPlayer, maxHelaPlayer),
     {
       fainted: false,
-      isStunned: false,
-      stunnedTimes: 0,
     },
   ]);
 
