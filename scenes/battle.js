@@ -39,6 +39,8 @@ function setBattle(worldState) {
     health(maxHelaPlayer, maxHelaPlayer),
     {
       fainted: false,
+      isStunned: false,
+      stunnedTimes: 0,
     },
   ]);
 
@@ -239,17 +241,31 @@ function setBattle(worldState) {
 
       reduceHealth(enemyMon, enemyMonHealthBar, damageDealt);
       makeMonFlash(enemyMon);
-
+      
+      if (!enemyMon.isStunned) {
       phase = "enemy-turn";
-    }
-    
+      return;
+      }
+      if (enemyMon.isStunned && enemyMon.stunnedTimes <2) {
+        enemyMon.stunnedTimes ++;
+        phase = "enemy-stunned"
+        return;
+      }
+        if (enemyMon.stunnedTimes >= 2 && enemyMon.isStunned) {
+          enemyMon.stunnedTimes = 0;
+          enemyMon.isStunned = false;
+          phase = "enemy-turn"
+          return;
+        }
+      }
+  
     if (phase === "enemy-stunned") {
-      content.text = "enemy stunned";
+      content.text = "Enemy is stunned";
 
-      setTimeout(() => phase = "player-selection", 2500);
+      setTimeout(() => phase = "player-selection", 1000);
     }
 
-  });
+});
   
   onKeyPress("enter", () => {
            if (worldState.hasHealthItem === true) {
@@ -272,6 +288,7 @@ function setBattle(worldState) {
 
           if (stunnaako > 40) {
             setTimeout(() => content.text = "Stun succesfull! Enemy stunned.", 800);
+            enemyMon.isStunned = true;
             setTimeout(() => phase = "player-selection", 1000);
             return;
           } else if (stunnaako <= 40) {
